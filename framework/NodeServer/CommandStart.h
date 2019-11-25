@@ -373,7 +373,7 @@ inline bool CommandStart::startNormal(string& sResult)
         vector<string> v = TC_Common::sepstr<string>(s, " \t");
         vOptions.insert(vOptions.end(), v.begin(), v.end());
 
-        osStartStcript << _exeFile << " " << TC_Common::tostr(vOptions) << endl;
+        osStartStcript << _exeFile << " " << TC_Common::tostr(vOptions) << " &" << endl;
     }
     else if (_serverObjectPtr->getServerType() == "tars_nodejs") 
     { 
