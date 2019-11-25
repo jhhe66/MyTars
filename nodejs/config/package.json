@@ -1,0 +1,25 @@
+{
+  "name": "@tars/config",
+  "version": "2.0.1",
+  "description": "TARS 框架中用于获取服务配置文件",
+  "main": "index.js",
+  "dependencies": {
+    "@tars/rpc": "latest",
+    "@tars/stream": "latest",
+    "@tars/utils": "latest",
+    "iconv-lite": "0.4.23"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tars-node/config.git"
+  },
+  "keywords": [
+    "tars",
+    "config"
+  ],
+  "author": {
+    "name": "Superzheng",
+    "email": "superzheng@tencent.com"
+  },
+  "license": "BSD-3-Clause"
+}
