@@ -123,6 +123,31 @@ foreach (MODULE ${DEPENDS_LIST})
     set(MODULES "${MODULES} ${MODULE}")
 endforeach ()
 
+#打包脚本
+SET(RUN_DEPLOY_COMMAND_FILE "${PROJECT_BINARY_DIR}/run-deploy-framework.cmake")
+FILE(WRITE ${RUN_DEPLOY_COMMAND_FILE} "#deploy framework-tar\n")
+FILE(APPEND ${RUN_DEPLOY_COMMAND_FILE} "EXECUTE_PROCESS(\n")
+FILE(APPEND ${RUN_DEPLOY_COMMAND_FILE} "WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/deploy/\n")
+FILE(APPEND ${RUN_DEPLOY_COMMAND_FILE} "COMMAND cp -rf ${PROJECT_SOURCE_DIR}/deploy/tars_install.sh .\n")
+FILE(APPEND ${RUN_DEPLOY_COMMAND_FILE} "COMMAND cp -rf ${PROJECT_SOURCE_DIR}/deploy/tarsnode_install.sh .\n")
+foreach (MODULE ${DEPENDS_LIST})
+    FILE(APPEND ${RUN_DEPLOY_COMMAND_FILE} "COMMAND cp -rf ${PROJECT_SOURCE_DIR}/deploy/${MODULE} .\n")
+endforeach ()
+FILE(APPEND ${RUN_DEPLOY_COMMAND_FILE} ")\n")
+FILE(APPEND ${RUN_DEPLOY_COMMAND_FILE} "EXECUTE_PROCESS(\n")
+FILE(APPEND ${RUN_DEPLOY_COMMAND_FILE} "WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/deploy/\n")
+FILE(APPEND ${RUN_DEPLOY_COMMAND_FILE} "COMMAND tar czfv ${FRAMEWORK-TGZ} ${MODULES}\n")
+#FILE(APPEND ${RUN_DEPLOY_COMMAND_FILE} "COMMAND mv ${FRAMEWORK-TGZ} ${CMAKE_BINARY_DIR}/framework.tgz\n")
+FILE(APPEND ${RUN_DEPLOY_COMMAND_FILE} ")\n")
+
+#执行命令
+add_custom_command(OUTPUT ${FRAMEWORK-TGZ}
+        COMMAND ${CMAKE_COMMAND} -P ${RUN_DEPLOY_COMMAND_FILE}
+        COMMENT "call ${RUN_DEPLOY_COMMAND_FILE}")
+
+add_custom_target(framework-tar
+        DEPENDS ${FRAMEWORK-TGZ} ${DEPENDS_LIST})
+
 ############################################################################################
 # 打包tarsnotify tarsstat tarsproperty tarslog tarsauth tarsquerystat tarsqueryproperty
 
