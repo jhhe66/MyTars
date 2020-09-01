@@ -35,7 +35,7 @@
     "read-installed" : "4.0.3",
     "on-finished" : "2.1.1",
     "event-loop-lag" : "1.1.0",
-    "pidusage" : "1.0.4"
+    "pidusage" : "2.0.21"
   },
   "bin": {
     "node-agent": "./bin/node-agent"
